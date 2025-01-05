@@ -11,6 +11,8 @@ import net.javaguides.ems.mapper.EmployeeMapper;
 import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,5 +35,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         .orElseThrow(() ->
                 new ResourceNotFoundException("Employee Does not exist with given ID:  "+employeeId));
         return EmployeeMapper.mapToEmployeeDto(employee);
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        List<Employee> employees=employeeRepository.findAll();
+        return employees.stream().map((employee)-> EmployeeMapper.mapToEmployeeDto(employee)).collect(Collectors.toList());
     }
 }
