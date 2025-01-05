@@ -23,4 +23,12 @@ public class EmployeeController {
         EmployeeDto savedEmployee=employeeService.createEmployee(employeeDto);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
+
+
+//    Build get Employee REST API
+    @GetMapping("{id}")
+    public ResponseEntity<EmployeeDto> getEmployedById(@PathVariable("id") Long employeeId){
+        EmployeeDto employeeDto=employeeService.getEmployedById(employeeId);
+        return ResponseEntity.ok(employeeDto);
+    }
 }
